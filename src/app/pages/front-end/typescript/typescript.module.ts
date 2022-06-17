@@ -7,18 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { TypeScriptPageRoutingModule } from './typescript-routing.module';
 
 import { TypeScriptPage } from './typescript.page';
-import { QuestionsComponent } from 'src/app/components/questions/questions.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TypeScriptPageRoutingModule
+    TypeScriptPageRoutingModule,
+    ComponentsModule,
   ],
   declarations: [
     TypeScriptPage,
-    QuestionsComponent,
   ]
 })
 export class TypeScriptPageModule {}

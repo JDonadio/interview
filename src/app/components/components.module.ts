@@ -4,21 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AngularPageRoutingModule } from './angular-routing.module';
-
-import { AngularPage } from './angular.page';
-import { ComponentsModule } from 'src/app/components/components.module';
+import { QuestionsComponent } from 'src/app/components/questions/questions.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AngularPageRoutingModule,
-    ComponentsModule,
   ],
   declarations: [
-    AngularPage,
+    QuestionsComponent,
+  ],
+  exports: [
+    QuestionsComponent,
   ]
 })
-export class AngularPageModule {}
+export class ComponentsModule {}

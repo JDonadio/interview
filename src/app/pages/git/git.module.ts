@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { GitPageRoutingModule } from './git-routing.module';
 
 import { GitPage } from './git.page';
-import { QuestionsComponent } from 'src/app/components/questions/questions.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
@@ -15,10 +15,10 @@ import { QuestionsComponent } from 'src/app/components/questions/questions.compo
     FormsModule,
     IonicModule,
     GitPageRoutingModule,
+    ComponentsModule,
   ],
   declarations: [
     GitPage,
-    QuestionsComponent,
   ]
 })
 export class GitPageModule {}

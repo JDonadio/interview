@@ -7,18 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { CssPageRoutingModule } from './css-routing.module';
 
 import { CssPage } from './css.page';
-import { QuestionsComponent } from 'src/app/components/questions/questions.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CssPageRoutingModule
+    CssPageRoutingModule,
+    ComponentsModule,
   ],
   declarations: [
     CssPage,
-    QuestionsComponent,
   ]
 })
 export class CssPageModule {}

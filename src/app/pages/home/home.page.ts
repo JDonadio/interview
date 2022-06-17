@@ -22,8 +22,7 @@ export class HomePage implements OnInit {
   public indexedData: { [key: string]: any } = {};
   public indexedDatasets: { [key: string]: any } = {};
   public indexedResume: { [key: string]: any } = {};
-
-  private activeTechnologies: string[] = [];
+  public activeTechnologies: string[] = [];
 
   constructor(
     private store: StoreService,
