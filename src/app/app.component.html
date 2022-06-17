@@ -2,27 +2,31 @@
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
+        <ion-list id="section-list">
+          <ion-menu-toggle auto-hide="false" *ngFor="let section of sections; let i = index">
+            <ion-item
+              routerDirection="root"
+              [routerLink]="[section.url]"
+              lines="none"
+              detail="false"
+              routerLinkActive="selected">
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
+              <ion-icon slot="start" [ios]="section.icon + '-outline'" [md]="section.icon"></ion-icon>
+              <ion-label>{{ section.title }}</ion-label>
+
             </ion-item>
+            <div class="separator" *ngIf="section.url.includes('home')"></div>
           </ion-menu-toggle>
         </ion-list>
-
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
-
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
-        </ion-list>
       </ion-content>
+
+      <ion-footer>
+        <ion-button fill="clear" color="danger" expand="full" (click)="clear()">
+          Clear Store
+          <ion-icon slot="end" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-footer>
+
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>

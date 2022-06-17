@@ -1,0 +1,108 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>
+      <div class="section-title">
+        <ion-icon color="primary" name="home"></ion-icon>
+        <div>Interview</div>
+      </div>
+    </ion-title>
+
+    <ion-buttons slot="secondary">
+      <ion-button color="primary" (click)="exportReport()"
+        [disabled]="!candidate.name || !candidate.seniority || !candidate.feedback || !activeTechnologies.length">
+        <ion-icon name="pie-chart"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-item>
+      <ion-label position="fixed">Candidate</ion-label>
+      <ion-input
+        [(ngModel)]="candidate.name"
+        (ngModelChange)="saveCandidate()"
+        required
+        debounce="300"
+        type="text"
+        autocorrect="off"
+        autocomplete="off">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="fixed">Seniority</ion-label>
+        <ion-select (ngModelChange)="saveCandidate()" [(ngModel)]="candidate.seniority" required>
+          <ion-select-option value="trainee">Trainee</ion-select-option>
+          <ion-select-option value="junior">Junior</ion-select-option>
+          <ion-select-option value="junior advance">Junior Advance</ion-select-option>
+          <ion-select-option value="semi senior">Semi Senior</ion-select-option>
+          <ion-select-option value="semi senior advance">Semi Senior Advance</ion-select-option>
+          <ion-select-option value="senior">Senior</ion-select-option>
+        </ion-select>
+    </ion-item>
+  </ion-card>
+
+  <ion-card *ngIf="activeTechnologies.length">
+    <ion-item>
+      <ion-label>Feedback</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-textarea (ngModelChange)="saveCandidate()" debounce="300" rows="5" [(ngModel)]="candidate.feedback" required></ion-textarea>
+    </ion-item>
+  </ion-card>
+
+  <!-- create a separated component for this -->
+  <div class="report" *ngFor="let tech of activeTechnologies">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>
+          <ion-note><strong>{{ tech | uppercase }} Chart</strong></ion-note>
+          <ion-note>
+            <ion-select (ngModelChange)="updateChart($event, tech)" [(ngModel)]="selectedChartType[tech]">
+              <ion-select-option value="bar">Bars</ion-select-option>
+              <ion-select-option value="line">Lines</ion-select-option>
+              <ion-select-option value="doughnut">Doughnut</ion-select-option>
+              <ion-select-option value="polarArea">Polar Area</ion-select-option>
+            </ion-select>
+          </ion-note>
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <canvas id="{{ tech }}" style="position: relative; height:20vh; width:40vw"></canvas>
+      </ion-card-content>
+
+      <ion-card-content *ngIf="indexedResume[tech]">
+        <ion-label><strong>{{ 'Resume' | uppercase }}</strong></ion-label>
+
+        <div class="resume">
+          <div class="resume__box" *ngFor="let resume of indexedResume[tech]">
+            <div class="resume__indicator" [ngClass]="resume.label"></div>
+
+            <div class="resume__percentage">
+              {{ resume.label | uppercase}}
+              {{ resume.answers + '/' + resume.questions }}
+              <strong>({{ resume.percentage }}%)</strong>
+            </div>
+
+            <div class="resume__average">
+              {{ 'Average' | uppercase }} <strong>{{ resume.average }}</strong>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+
+      <ion-card-content *ngIf="indexedData[tech]?.comments">
+        <ion-label><strong>{{ 'Comments' | uppercase }}</strong></ion-label>
+        <div class="comments">{{ indexedData[tech].comments }}</div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

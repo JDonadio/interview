@@ -1,0 +1,41 @@
+<ion-accordion-group *ngFor="let section of sections" [value]="true">
+  <ion-card>
+    <ion-accordion [value]="expanded[section.title]">
+      <ion-item slot="header">
+        <ion-label>{{ section.title }}</ion-label>
+      </ion-item>
+
+      <ion-list slot="content">
+        <div class="question" [ngClass]="(question.level || 'none') + ' ' + (question.criteria || '')"
+          *ngFor="let question of section.questions">
+
+          <ion-label>{{ question.text }}</ion-label>
+
+          <ion-radio-group
+            allow-empty-selection="true"
+            [(ngModel)]="question.points"
+            (ngModelChange)="save()"
+            *ngIf="question.level">
+
+            <ion-note *ngIf="question.criteria === 'optional'"><i>Optional</i></ion-note>
+
+            <div class="radio-option" *ngFor="let val of [1,2,3,4,5]">
+              <ion-label>{{ val }}</ion-label>
+              <ion-radio slot="start" value="{{ val }}"></ion-radio>
+            </div>
+          </ion-radio-group>
+        </div>
+      </ion-list>
+    </ion-accordion>
+  </ion-card>
+</ion-accordion-group>
+
+<ion-card class="comments">
+  <ion-item>
+    <ion-label>Comentarios adicionales</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-textarea (ngModelChange)="save()" debounce="300" rows="5" [(ngModel)]="comments"></ion-textarea>
+  </ion-item>
+</ion-card>
