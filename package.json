@@ -11,7 +11,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "prepare": "ionic build --prod --base-href interview",
-    "publish": "touch docs/.nojekyll && npx angular-cli-ghpages --dir=docs"
+    "publish": "touch docs/.nojekyll && cp docs/index.html docs/404.html"
   },
   "private": true,
   "dependencies": {
