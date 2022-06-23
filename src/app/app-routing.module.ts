@@ -3,15 +3,6 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  {
-    path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
-  },
-  {
     path: 'front-end/angular',
     loadChildren: () => import('./pages/front-end/angular/angular.module').then( m => m.AngularPageModule)
   },
@@ -26,7 +17,16 @@ const routes: Routes = [
   {
     path: 'git',
     loadChildren: () => import('./pages/git/git.module').then( m => m.GitPageModule)
-  }
+  },
+  {
+    path: '',
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({
